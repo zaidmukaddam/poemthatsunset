@@ -1,0 +1,4 @@
+Sitemap: https://poemthatsunset.za16.co/sitemap.xml
+
+User-agent: *
+Disallow: /api
