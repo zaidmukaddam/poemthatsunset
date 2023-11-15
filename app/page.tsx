@@ -27,7 +27,7 @@ export default async function Home() {
           className="mt-6 animate-fade-up text-center text-gray-500 opacity-0 [text-wrap:balance] md:text-xl"
           style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}
         >
-          OpenAI&apos;s GPT-4 Vision and TTS powered web app that generates poems based on pictures of sunsets.
+          OpenAI&apos;s GPT-4 Vision and TTS APIs powered web app that generates poems based on pictures of sunsets.
         </p>
       </div>
       <div
