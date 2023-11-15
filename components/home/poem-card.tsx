@@ -103,14 +103,13 @@ export default function PoemCard() {
           </label>
         </div>
         <div className="mt-6">
-          
           {image && (
             <div className="mt-4">
               <Image src={image} alt="Uploaded" width={600} height={400} className="rounded-lg" />
             </div>
           )}
           {isLoading && (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center mt-3">
               <div className="loader"></div>
             </div>
           )}
