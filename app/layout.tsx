@@ -29,6 +29,7 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer />
+        <script async src="https://cdn.splitbee.io/sb.js" />
       </body>
     </html>
   );
