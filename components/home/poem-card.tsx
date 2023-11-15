@@ -8,6 +8,7 @@ export default function PoemCard() {
   const [responsePoem, setResponsePoem] = useState<string>('');
   const [audioSrc, setAudioSrc] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAudioLoading, setIsAudioLoading] = useState<boolean>(false);
 
   const convertToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -51,12 +52,12 @@ export default function PoemCard() {
           fetchAudio(result);
           return;
         }
-      
+
         const textChunk = decoder.decode(value, { stream: true });
         result += textChunk;
-        
+
         setResponsePoem(result);
-        
+
         reader.read().then(processText);
       }).catch(error => {
         console.error('Error reading from the stream', error);
@@ -69,6 +70,7 @@ export default function PoemCard() {
   };
 
   const fetchAudio = async (text: string): Promise<void> => {
+    setIsAudioLoading(true);
     try {
       const response = await fetch('/api/tts', {
         method: 'POST',
@@ -79,7 +81,9 @@ export default function PoemCard() {
       });
       const blob = await response.blob();
       setAudioSrc(URL.createObjectURL(blob));
+      setIsAudioLoading(false);
     } catch (error) {
+      setIsAudioLoading(false);
       console.error('Error fetching audio from API:', error);
     }
   };
@@ -120,10 +124,17 @@ export default function PoemCard() {
               </div>
             </div>
           )}
-          {audioSrc && (
-            <audio controls src={audioSrc} className="mt-4 w-full">
-              Your browser does not support the audio element.
-            </audio>
+          {isAudioLoading ? (
+            // Skeleton loader for audio player
+            <div className="mt-4 w-full animate-pulse">
+              <div className="bg-gray-300 rounded h-12"></div> {/* Mimics the size of the audio player */}
+            </div>
+          ) : (
+            audioSrc && (
+              <audio controls src={audioSrc} className="mt-4 w-full">
+                Your browser does not support the audio element.
+              </audio>
+            )
           )}
         </div>
       </div>
