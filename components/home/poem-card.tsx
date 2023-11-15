@@ -21,9 +21,14 @@ export default function PoemCard() {
 
   const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
     if (e.target.files && e.target.files[0]) {
-      const base64 = await convertToBase64(e.target.files[0]);
-      setImage(base64);
-      sendImageToApi(base64);
+      const file = e.target.files[0];
+      if (file.size <= 2097152) {
+        const base64 = await convertToBase64(file);
+        setImage(base64);
+        sendImageToApi(base64);
+      } else {
+        alert('File size should not exceed 2MB');
+      }
     }
   };
 
